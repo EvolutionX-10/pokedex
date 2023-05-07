@@ -1,0 +1,138 @@
+@font-face {
+  font-family: pokemon-solid;
+  src: url("assets/fonts/Solid.ttf");
+}
+
+@font-face {
+  font-family: pokemon-hollow;
+  src: url("assets/fonts/Hollow.ttf");
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  background: white;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus {
+  outline: none !important;
+}
+
+
+
+.pokeball {
+  animation: spin 5s linear infinite;
+}
+
+svg.clicked {
+  animation: none;
+}
+
+@media (max-width: 40rem) {
+  .pokeball {
+    animation: jump 3s cubic-bezier(0.5, 0.35, 0.15, 0.86) infinite;
+  }
+
+  g.inner {
+    animation: pulse 0.5s infinite cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+
+  svg.clicked g.inner {
+    animation: none;
+  }
+
+  svg.clicked {
+    animation: none;
+  }
+}
+
+@keyframes pulse {
+  5% {
+    opacity: 1;
+  }
+
+  30% {
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+  }
+
+  10% {
+    transform: translateY(-70%);
+  }
+
+  20% {
+    transform: translateY(0);
+  }
+
+  30% {
+    transform: translateY(-70%);
+  }
+
+  40% {
+    transform: translateY(0);
+  }
+}
+
+/* scaleUp for the arcs in between the ball's halves and for the failure animation */
+svg.clicked g.open {
+  animation: scaleUp 0.2s 0.1s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+@keyframes scaleUp {
+  to {
+    transform: scale(1);
+  }
+}
+
+/* translateUp for the top half and the failure animation */
+svg.clicked g.top {
+  animation: translateUp 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+@keyframes translateUp {
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+/* translateDown for the bottom half and the failure animation */
+svg.clicked g.bottom {
+  animation: translateDown 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+@keyframes translateDown {
+  to {
+    transform: translateY(5px);
+  }
+}
+
+/* translateHigher for the center and the failure animation */
+svg.clicked g.center {
+  animation: translateHigher 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+@keyframes translateHigher {
+  to {
+    transform: translateY(-18px);
+  }
+}
