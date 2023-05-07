@@ -22,8 +22,8 @@ export function Container() {
 			return arr;
 		};
 
-		// const numbers = fillArray(12 * 3);
-		const numbers = Array(30).fill(null).map((_, i) => i + 1);
+		const numbers = fillArray(12 * 3);
+		// const numbers = Array(30).fill(null).map((_, i) => i + 1);
 		const set = async () => {
 			setPanes(
 				await Promise.all(

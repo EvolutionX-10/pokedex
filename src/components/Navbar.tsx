@@ -8,8 +8,8 @@ export function NavBar(props: NavBarProps) {
 			.getElementsByTagName('svg')
 			.item(0)!;
 
-		// const wobble = new Audio('../assets/wobble.mp3');
-		const bounce = new Audio('../assets/bounce.mp3');
+		// const wobble = new Audio('../public/assets/wobble.mp3');
+		const bounce = new Audio('../public/assets/bounce.mp3');
 		bounce.volume = 0.5;
 		const mobile = navigator.userAgent.includes('Mobile');
 		mobile && svg.classList.toggle('clicked');
@@ -150,7 +150,7 @@ export function NavBar(props: NavBarProps) {
 						</g>
 					</g>
 				</svg>
-				<img src="../assets/logo.png" alt="" />
+				<img src="../public/assets/logo.png" alt="" />
 			</div>
 			<SearchBar
 				pokemon={props.pokemon}
