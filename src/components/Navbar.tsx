@@ -150,7 +150,7 @@ export function NavBar(props: NavBarProps) {
 						</g>
 					</g>
 				</svg>
-				<img src="../public/assets/logo.png" alt="" />
+				<img src="logo.png" alt="" />
 			</div>
 			<SearchBar
 				pokemon={props.pokemon}
