@@ -1,11 +1,11 @@
 @font-face {
   font-family: pokemon-solid;
-  src: url("assets/fonts/Solid.ttf");
+  src: url("../public/assets/fonts/Solid.ttf");
 }
 
 @font-face {
   font-family: pokemon-hollow;
-  src: url("assets/fonts/Hollow.ttf");
+  src: url("../public/assets/fonts/Hollow.ttf");
 }
 
 #root {
