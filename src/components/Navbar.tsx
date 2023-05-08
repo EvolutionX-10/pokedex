@@ -2,15 +2,15 @@ import { Pokemon } from '@favware/graphql-pokemon';
 import { SearchBar } from './SearchBar';
 
 export function NavBar(props: NavBarProps) {
+	const bounce = new Audio('assets/bounce.mp3');
 	function handleClick(e: React.MouseEvent) {
 		e.preventDefault();
 		const svg = document
 			.getElementsByTagName('svg')
 			.item(0)!;
 
-		// const wobble = new Audio('assets/wobble.mp3');
-		const bounce = new Audio('assets/bounce.mp3');
-		bounce.volume = 0.5;
+			// const wobble = new Audio('assets/wobble.mp3');
+		bounce.volume = 0.7;
 		const mobile = navigator.userAgent.includes('Mobile');
 		mobile && svg.classList.toggle('clicked');
 

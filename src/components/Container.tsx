@@ -1,8 +1,7 @@
 import type { Pokemon } from '@favware/graphql-pokemon';
-import { SearchBar } from './SearchBar';
 import { useEffect, useState } from 'react';
 import { NavBar } from './Navbar';
-import { Pane } from './Pane';
+import { Pane2 } from './Pane2';
 import { getPokemonByNum } from '#lib';
 
 export function Container() {
@@ -12,7 +11,7 @@ export function Container() {
 	const [panes, setPanes] = useState<Pokemon[]>([]);
 
 	useEffect(() => {
-		const random = () => Math.round(Math.random() * 200) + 1;
+		const random = () => Math.round(Math.random() * 400) + 1;
 		const fillArray = (size: number) => {
 			const arr = [];
 			while (arr.length < size) {
@@ -22,7 +21,7 @@ export function Container() {
 			return arr;
 		};
 
-		const numbers = fillArray(12 * 3);
+		const numbers = fillArray(12 * 2);
 		// const numbers = Array(30).fill(null).map((_, i) => i + 1);
 		const set = async () => {
 			setPanes(
@@ -38,9 +37,9 @@ export function Container() {
 		<div className="flex h-full w-full flex-col items-center">
 			<NavBar pokemon={pokemon} setPokemon={setPokemon} />
 
-			<Pane pokemon={pokemon!} />
+			<Pane2 pokemon={pokemon!} />
 			<div className="flex flex-wrap justify-center">
-				{...panes.map((p) => <Pane pokemon={p} />)}
+				{...panes.map((p) => <Pane2 pokemon={p} />)}
 			</div>
 		</div>
 	);
