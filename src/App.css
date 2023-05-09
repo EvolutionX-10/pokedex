@@ -34,8 +34,22 @@
 }
 
 .icon:hover {
-  filter: saturate(150%);
+  filter: saturate(200%);
   cursor: pointer;
+}
+
+.icon:hover::before {
+  content: attr(data-type);
+  position: absolute;
+  width: fit-content;
+  background: inherit;
+  padding-inline: 1rem;
+  border-radius: 1rem;
+  text-align: center;
+  text-transform: capitalize;
+  color: white;
+  margin: 6px;
+  animation: pop .3s cubic-bezier(0.895, 0.03, 0.185, 0.92) forwards;
 }
 
 .icon img {
@@ -157,6 +171,28 @@ svg.clicked {
 
   svg.clicked {
     animation: none;
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(-150%);
+  }
+}
+
+@keyframes pop-back {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(100%);
   }
 }
 
