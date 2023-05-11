@@ -1,8 +1,8 @@
 import './App.css';
-import { Container } from './components/Container';
+import { Home } from './routes/Home';
 
 function App() {
-	return <Container />;
+	return <Home />;
 }
 
 export default App;

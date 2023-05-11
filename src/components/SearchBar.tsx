@@ -1,4 +1,4 @@
-import { getPokemon } from '#lib';
+import { getPokemon, getPokemonByNum } from '#lib';
 import type {
 	Pokemon,
 	PokemonEnum,
@@ -11,9 +11,11 @@ export function SearchBar(props: SearchBarProps) {
 	const handleSearch = useCallback(
 		async (e: React.FormEvent<HTMLFormElement>) => {
 			e.preventDefault();
-			const pokemon = await getPokemon(
-				search.toLowerCase() as PokemonEnum
-			);
+			const pokemon = isNaN(+search)
+				? await getPokemon(
+						search.toLowerCase() as PokemonEnum
+				  )
+				: await getPokemonByNum(+search);
 			console.log(pokemon);
 
 			if (!pokemon) return;

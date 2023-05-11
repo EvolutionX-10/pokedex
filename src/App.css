@@ -23,6 +23,42 @@
   outline: none !important;
 }
 
+.joy {
+  margin: 20px;
+  max-height: max(45vw, 80vh);
+  transform: translateY(5%);
+}
+
+.bubble {
+  position: absolute;
+  top: 10vh;
+  left: 12vw;
+  font-size: max(1vw, 1.1rem);
+  background: #f4b3a8;
+  padding-inline: 2rem;
+  border-radius: 2rem;
+  height: 7rem;
+  width: max(19rem, 30vw);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 5;
+}
+
+.bubble::after {
+  z-index: 1;
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 50px;
+  transform: translate(12vw, 80%) rotate(75deg);
+  background: inherit;
+  border-radius: 0 200% 0 200%;
+  z-index: -3;
+
+}
+
 .icon {
   border-radius: 100%;
   width: 2.4rem;
@@ -49,7 +85,7 @@
   text-transform: capitalize;
   color: white;
   margin: 6px;
-  animation: pop .3s cubic-bezier(0.895, 0.03, 0.185, 0.92) forwards;
+  animation: pop .3s cubic-bezier(0.295, 1.93, 0.085, 0.92) forwards;
 }
 
 .icon img {
@@ -157,6 +193,21 @@ svg.clicked {
 }
 
 @media (max-width: 40rem) {
+  .joy {
+    transform: translateY(0);
+  }
+
+  .bubble {
+    top: 50vh;
+    left: 8vw;
+  }
+
+  .bubble::after {
+    transform: translate(-225%, -80%) rotate(75deg);
+    border-radius: 0 100% 0 100%;
+    width: 50px;
+  }
+
   .pokeball {
     animation: jump 3s cubic-bezier(0.5, 0.35, 0.15, 0.86) infinite;
   }
