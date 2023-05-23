@@ -30,7 +30,7 @@ export function Pane2({ pokemon }: IPane) {
 						.toString()
 						.padStart(3, '0')}.png`}
 					alt={pokemon.species}
-					className="h-[110%] w-3/5 object-contain"
+					className="pkmn h-[110%] w-3/5 object-contain"
 				/>
 			</div>
 		</Link>

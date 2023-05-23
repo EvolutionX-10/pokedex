@@ -59,7 +59,7 @@
 
 }
 
-.pane:hover img {
+.pane:hover .pkmn {
   transition: all 0.2s ease-out;
   transform: scale(1.05);
 }
