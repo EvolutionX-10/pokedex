@@ -59,6 +59,11 @@
 
 }
 
+.pane:hover img {
+  transition: all 0.2s ease-out;
+  transform: scale(1.05);
+}
+
 .icon {
   border-radius: 100%;
   width: 2.4rem;
@@ -71,7 +76,6 @@
 
 .icon:hover {
   filter: saturate(200%);
-  cursor: pointer;
 }
 
 .icon:hover::before {

@@ -1,9 +1,11 @@
-import { Pokemon } from "@favware/graphql-pokemon"
+import { useLoaderData, useParams } from 'react-router-dom';
+import type { Pokemon } from '@favware/graphql-pokemon';
 
-export function Pokemon({ pokemon }: IPokemon) {
-	return <div>hi {pokemon.species}</div>
+export function Pokemon() {
+	const { pokemon } = useLoaderData() as LoaderData;
+	return <h1>{pokemon.species}</h1>;
 }
 
-interface IPokemon {
+interface LoaderData {
 	pokemon: Pokemon;
 }

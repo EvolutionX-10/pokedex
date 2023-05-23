@@ -1,18 +1,28 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
+import './index.css';
 import {
 	createBrowserRouter,
 	RouterProvider,
 } from 'react-router-dom';
+import { Pokemon } from './pages/Pokemon';
+import { getPokemonByNum } from '#lib';
 import App from './App';
-import './index.css';
-import { NotFound404 } from './routes/404';
 
 const router = createBrowserRouter([
 	{
-		path: '/pokedex/',
+		path: '/pokedex',
 		element: <App />,
-		errorElement: <NotFound404 />,
+	},
+	{
+		path: '/pokedex/:num',
+		loader: async ({ params }) => {
+			const pkmn = await getPokemonByNum(
+				Number(params.num)
+			);
+			return { pokemon: pkmn };
+		},
+		element: <Pokemon />,
+		errorElement: <h1>404 bro what tf</h1>, // ! works nice
 	},
 ]);
 
