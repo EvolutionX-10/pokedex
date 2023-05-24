@@ -11,7 +11,7 @@ import { NotFound404 } from './pages/404';
 
 const router = createBrowserRouter([
 	{
-		path: '/pokedex',
+		path: '/',
 		children: [
 			{
 				index: true,

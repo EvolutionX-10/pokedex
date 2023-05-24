@@ -21,7 +21,7 @@ export function NotFound404() {
 					has won this time.
 				</h2>
 				<Link
-					to={'/pokedex'}
+					to={'/'}
 					className="z-10 flex h-12 w-40 cursor-pointer items-center justify-center rounded-[0.4rem] bg-yellow-400 text-center shadow-[inset_0px_-5px_0px_rgba(0,0,0,0.18)]"
 				>
 					Return
