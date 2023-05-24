@@ -1,7 +1,9 @@
 import { GraphQLPokemonResponse } from '#types';
 import { Pokemon } from '@favware/graphql-pokemon';
 
-export async function getPokemonByNum(number: number): Promise<Pokemon> {
+export async function getPokemonByNum(
+	number: number
+): Promise<Pokemon> {
 	const res = await fetch(
 		'https://graphqlpokemon.favware.tech/v7',
 		{

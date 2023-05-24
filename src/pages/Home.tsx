@@ -33,21 +33,21 @@ export function Home() {
 	}, []);
 
 	return (
-			<div className="flex h-full w-full flex-col items-center">
-				<NavBar pokemon={pokemon} setPokemon={setPokemon} />
-				<img
-					src="assets/joy.png"
-					alt="Nurse Joy"
-					className="joy"
-				/>
-				<div className="bubble">
-					Welcome to the Pokédex, here you will find
-					information on different kinds of Pokémon.
-				</div>
-				<Pane2 pokemon={pokemon!} />
-				<div className="flex flex-wrap justify-center">
-					{...panes.map((p) => <Pane2 pokemon={p} />)}
-				</div>
+		<div className="flex h-full w-full flex-col items-center">
+			<NavBar pokemon={pokemon} setPokemon={setPokemon} />
+			<img
+				src="assets/joy.png"
+				alt="Nurse Joy"
+				className="joy"
+			/>
+			<div className="bubble">
+				Welcome to the Pokédex, here you will find
+				information on different kinds of Pokémon.
 			</div>
+			<Pane2 pokemon={pokemon!} />
+			<div className="flex flex-wrap justify-center gap-10">
+				{...panes.map((p) => <Pane2 pokemon={p} />)}
+			</div>
+		</div>
 	);
 }

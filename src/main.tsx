@@ -7,22 +7,28 @@ import {
 import { Pokemon } from './pages/Pokemon';
 import { getPokemonByNum } from '#lib';
 import App from './App';
+import { NotFound404 } from './pages/404';
 
 const router = createBrowserRouter([
 	{
 		path: '/pokedex',
-		element: <App />,
-	},
-	{
-		path: '/pokedex/:num',
-		loader: async ({ params }) => {
-			const pkmn = await getPokemonByNum(
-				Number(params.num)
-			);
-			return { pokemon: pkmn };
-		},
-		element: <Pokemon />,
-		errorElement: <h1>404 bro what tf</h1>, // ! works nice
+		children: [
+			{
+				index: true,
+				element: <App />,
+			},
+			{
+				path: ':num',
+				loader: async ({ params }) => {
+					const pkmn = await getPokemonByNum(
+						Number(params.num)
+					);
+					return { pokemon: pkmn };
+				},
+				element: <Pokemon />,
+				errorElement: <NotFound404 />,
+			},
+		],
 	},
 ]);
 

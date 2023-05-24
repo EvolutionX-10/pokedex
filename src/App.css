@@ -26,7 +26,6 @@
 .joy {
   margin: 20px;
   max-height: max(45vw, 80vh);
-  transform: translateY(5%);
 }
 
 .bubble {
