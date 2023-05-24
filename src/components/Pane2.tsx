@@ -9,7 +9,7 @@ export function Pane2({ pokemon }: IPane) {
 		<Icon type={r.name.toLowerCase()} />
 	));
 	return (
-		<Link to={`/pokedex/${pokemon.num}`}>
+		<Link to={`/${pokemon.num}`}>
 			<div
 				className="pane relative m-1 flex h-40 w-[min(26rem,90vw)] cursor-pointer items-center justify-between rounded-2xl bg-gray-100 shadow-[0_0_10px_rgb(99,99,99)] hover:shadow-[0_0_15px_rgb(80,80,80)]"
 				style={{
