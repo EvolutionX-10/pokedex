@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import rocket from '../../public/assets/teamRocket.svg';
 
 export function NotFound404() {
 	return (
@@ -9,7 +8,7 @@ export function NotFound404() {
 					404
 				</h1>
 				<img
-					src={rocket}
+					src="assets/teamRocket.svg"
 					alt="Team Rocket"
 					width={500}
 					className="z-10"

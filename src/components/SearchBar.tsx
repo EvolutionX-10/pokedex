@@ -16,7 +16,6 @@ export function SearchBar(props: SearchBarProps) {
 						search.toLowerCase() as PokemonEnum
 				  )
 				: await getPokemonByNum(+search);
-			console.log(pokemon);
 
 			if (!pokemon) return;
 			props.setPokemon(pokemon);

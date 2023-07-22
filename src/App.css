@@ -17,6 +17,8 @@
 
 * {
   -webkit-tap-highlight-color: transparent;
+  user-select: text;
+  /* outline: 1px solid blue; */
 }
 
 :focus {
