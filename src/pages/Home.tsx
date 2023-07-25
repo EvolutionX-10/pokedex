@@ -14,12 +14,12 @@ export function Home() {
 		...new Set([
 			today,
 			today + 10,
-			month + 50,
+			month + today + 50,
 			today + 43,
 			today + month,
-			month + 145,
+			month + today * 5,
 			today - month + 450,
-			month + 5,
+			month + today + 5,
 			today + 740,
 		]),
 	];
