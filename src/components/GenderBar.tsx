@@ -13,8 +13,8 @@ export function GenderBar({ female, male }: GenderBarProps) {
 				alt="female"
 			/>
 			{/* TODO: Handle a way for neutral genders */}
-			<div style={style(female)} className={`w-3/5 rounded-md bg-female mb-0.5`}></div>
-			<div style={style(male)} className={`w-3/5 rounded-md bg-male mt-0.5`}></div>
+			<div style={style(female)} className={`mb-0.5 w-3/5 rounded-b-sm rounded-t-md bg-female`} />
+			<div style={style(male)} className={`mt-0.5 w-3/5 rounded-b-md rounded-t-sm bg-male`} />
 		</aside>
 	);
 }
