@@ -17,7 +17,8 @@
 
 * {
 	-webkit-tap-highlight-color: transparent;
-	user-select: text;
+	user-select: none;
+	-webkit-user-drag: none;
 	/* outline: 1px solid blue; */
 }
 
