@@ -11,10 +11,16 @@ export function Pokemon() {
 	const evolutions = {
 		evolutions: [
 			...(pokemon.evolutions?.filter((p) => !p.baseSpecies) ?? []),
-			...(pokemon.evolutions?.map((p) => p.evolutions).flat() ?? []),
+			...(pokemon.evolutions
+				?.map((p) => p.evolutions)
+				.flat()
+				.filter((p) => !p?.baseSpecies) ?? []),
 		].filter(Boolean) as Pokemon[],
 		preevolutions: [
-			...(pokemon.preevolutions?.map((p) => p.preevolutions).flat() ?? []),
+			...(pokemon.preevolutions
+				?.map((p) => p.preevolutions)
+				.flat()
+				.filter((p) => !p?.baseSpecies) ?? []),
 			...(pokemon.preevolutions?.filter((p) => !p.baseSpecies) ?? []),
 		].filter(Boolean) as Pokemon[],
 		this: pokemon,
@@ -36,7 +42,7 @@ export function Pokemon() {
 					<h1 className="text-3xl capitalize">{pokemon.species}</h1>
 				</div>
 			</div>
-			<div className="flex flex-wrap items-center justify-center gap-10 w-[45rem] max-md:w-[90vw]">
+			<div className="flex w-[45rem] flex-wrap items-center justify-center gap-10 max-md:w-[90vw]">
 				<EvolutionBlock {...evolutions} />
 				<StatsBlock stats={pokemon.baseStats} />
 			</div>
