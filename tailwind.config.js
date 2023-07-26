@@ -82,6 +82,7 @@ module.exports = {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fill-right': 'fillRight 2s cubic-bezier(.64,.09,.18,.96) forwards',
 			},
 		},
 	},

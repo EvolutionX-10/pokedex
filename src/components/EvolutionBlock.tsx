@@ -2,7 +2,7 @@ import type { Maybe, Pokemon } from '@favware/graphql-pokemon';
 
 export function EvolutionBlock(props: IEvolutionBlockProps) {
 	return (
-		<div className="min-w-[min(240rem, 80vw)] max-w-[min(30rem, 90vw)] flex flex-col items-center justify-around rounded-md border-2 border-blue-400 px-4">
+		<div className="min-w-[min(24rem,80vw)] max-w-[min(30rem,90vw)] flex flex-col items-center justify-around rounded-md border-2 border-blue-400 px-4">
 			<h2 className="pt-4 text-3xl font-medium">Evolutionary Line</h2>
 			<div className="flex flex-row flex-wrap items-baseline justify-evenly gap-10 px-4 pb-2">
 				{props.preevolutions?.map((prevo, index) => (

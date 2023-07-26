@@ -3,9 +3,11 @@ import type { Pokemon } from '@favware/graphql-pokemon';
 import { GenderBar } from '../components/GenderBar';
 import { Back } from '../components/Back';
 import { EvolutionBlock } from '@/components/EvolutionBlock';
+import { StatsBlock } from '@/components/StatsBlock';
 
 export function Pokemon() {
 	const { pokemon } = useLoaderData() as LoaderData;
+
 	const evolutions = {
 		evolutions: [
 			...(pokemon.evolutions?.filter((p) => !p.baseSpecies) ?? []),
@@ -19,7 +21,7 @@ export function Pokemon() {
 	};
 
 	return (
-		<div className="flex w-full flex-row items-center justify-around max-md:flex-col max-md:py-[100px] max-md:gap-10">
+		<div className="flex w-full flex-row items-center justify-center gap-4 max-md:flex-col max-md:gap-10 max-md:py-[100px]">
 			<Back />
 			<div className="flex w-2/5 items-center justify-around max-md:w-4/5">
 				<GenderBar {...pokemon.gender} />
@@ -34,8 +36,9 @@ export function Pokemon() {
 					<h1 className="text-3xl capitalize">{pokemon.species}</h1>
 				</div>
 			</div>
-			<div className="flex flex-wrap justify-center items-center max-md:w-[90vw]">
+			<div className="flex flex-wrap items-center justify-center gap-10 w-[45rem] max-md:w-[90vw]">
 				<EvolutionBlock {...evolutions} />
+				<StatsBlock stats={pokemon.baseStats} />
 			</div>
 		</div>
 	);
