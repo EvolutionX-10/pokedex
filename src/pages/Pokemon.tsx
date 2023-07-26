@@ -1,4 +1,4 @@
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import type { Pokemon } from '@favware/graphql-pokemon';
 import { GenderBar } from '../components/GenderBar';
 import { Back } from '../components/Back';
@@ -19,7 +19,7 @@ export function Pokemon() {
 	};
 
 	return (
-		<div className="flex w-full flex-row items-center justify-around max-md:flex-col">
+		<div className="flex w-full flex-row items-center justify-around max-md:flex-col max-md:py-[100px] max-md:gap-10">
 			<Back />
 			<div className="flex w-2/5 items-center justify-around max-md:w-4/5">
 				<GenderBar {...pokemon.gender} />
@@ -34,7 +34,7 @@ export function Pokemon() {
 					<h1 className="text-3xl capitalize">{pokemon.species}</h1>
 				</div>
 			</div>
-			<div className="flex flex-wrap">
+			<div className="flex flex-wrap justify-center items-center max-md:w-[90vw]">
 				<EvolutionBlock {...evolutions} />
 			</div>
 		</div>
