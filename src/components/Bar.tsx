@@ -19,7 +19,7 @@ export function Bar({ stat, color, name }: BarProps) {
 						width: `${stat * 100 / 255}%`,
 					}}
 				></div>
-				<div className="absolute flex w-full items-center justify-center text-gray-500">{stat}</div>
+				<div className="absolute flex w-full items-center justify-center text-gray-600">{stat}</div>
 			</div>
 		</div>
 	);
