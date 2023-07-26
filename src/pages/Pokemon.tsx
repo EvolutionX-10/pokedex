@@ -2,10 +2,22 @@ import { useLoaderData, useParams } from 'react-router-dom';
 import type { Pokemon } from '@favware/graphql-pokemon';
 import { GenderBar } from '../components/GenderBar';
 import { Back } from '../components/Back';
+import { EvolutionBlock } from '@/components/EvolutionBlock';
 
 export function Pokemon() {
 	const { pokemon } = useLoaderData() as LoaderData;
-	// console.log(pokemon);
+	const evolutions = {
+		evolutions: [
+			...(pokemon.evolutions?.filter((p) => !p.baseSpecies) ?? []),
+			...(pokemon.evolutions?.map((p) => p.evolutions).flat() ?? []),
+		].filter(Boolean) as Pokemon[],
+		preevolutions: [
+			...(pokemon.preevolutions?.map((p) => p.preevolutions).flat() ?? []),
+			...(pokemon.preevolutions?.filter((p) => !p.baseSpecies) ?? []),
+		].filter(Boolean) as Pokemon[],
+		this: pokemon,
+	};
+
 	return (
 		<div className="flex w-full flex-row items-center justify-around max-md:flex-col">
 			<Back />
@@ -22,7 +34,9 @@ export function Pokemon() {
 					<h1 className="text-3xl capitalize">{pokemon.species}</h1>
 				</div>
 			</div>
-			<div className="">some text</div>
+			<div className="flex flex-wrap">
+				<EvolutionBlock {...evolutions} />
+			</div>
 		</div>
 	);
 }
