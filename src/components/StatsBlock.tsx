@@ -2,8 +2,6 @@ import type { Stats } from '@favware/graphql-pokemon';
 import { Bar } from './Bar';
 
 export function StatsBlock({ stats }: StatsBlockProps) {
-	console.log(stats);
-
 	const color: Record<string, string> = {
 		attack: '#f5ac78',
 		defense: '#fae078',
