@@ -19,18 +19,26 @@ export function Back() {
 	}, []);
 
 	return (
-		<Link
-			to={'/'}
-			className="absolute left-0 top-0 m-12 flex aspect-square w-12 cursor-pointer select-none items-center justify-center rounded-full border-4 bg-[linear-gradient(145deg,#ffffff,#e6e6e6)] text-center font-bold shadow-btn max-sm:m-6"
-		>
-			<TooltipProvider>
-				<Tooltip>
-					<TooltipTrigger>B</TooltipTrigger>
-					<TooltipContent>
-						<p>Back</p>
-					</TooltipContent>
-				</Tooltip>
-			</TooltipProvider>
-		</Link>
+		<TooltipProvider>
+			<Tooltip>
+				<TooltipTrigger asChild>
+					<Link
+						to="/"
+						className="absolute left-10 top-10 flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300"
+					>
+						<svg className="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
+							<path
+								fillRule="evenodd"
+								d="M10.707 3.293a1 1 0 010 1.414L7.414 9H15a1 1 0 110 2H7.414l3.293 3.293a1 1 0 01-1.414 1.414l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 0z"
+								clipRule="evenodd"
+							/>
+						</svg>
+					</Link>
+				</TooltipTrigger>
+				<TooltipContent className='bg-gray-100'>
+					<p>BACK</p>
+				</TooltipContent>
+			</Tooltip>
+		</TooltipProvider>
 	);
 }

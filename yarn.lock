@@ -763,7 +763,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-slot@npm:1.0.2":
+"@radix-ui/react-slot@npm:1.0.2, @radix-ui/react-slot@npm:^1.0.2":
   version: 1.0.2
   resolution: "@radix-ui/react-slot@npm:1.0.2"
   dependencies:
@@ -2305,6 +2305,7 @@ __metadata:
   resolution: "pokedex@workspace:."
   dependencies:
     "@favware/graphql-pokemon": ^7.2.1
+    "@radix-ui/react-slot": ^1.0.2
     "@radix-ui/react-tooltip": ^1.0.6
     "@types/node": ^20.4.0
     "@types/react": ^18.0.28

@@ -1,9 +1,9 @@
 import { useLoaderData } from 'react-router-dom';
 import type { Pokemon } from '@favware/graphql-pokemon';
-import { GenderBar } from '../components/GenderBar';
-import { Back } from '../components/Back';
-import { EvolutionBlock } from '@/components/EvolutionBlock';
+import { GenderBar } from '@/components/GenderBar';
+import { Back } from '@/components/Back';
 import { StatsBlock } from '@/components/StatsBlock';
+import { Carousel } from '@/components/Carousel';
 
 export function Pokemon() {
 	const { pokemon } = useLoaderData() as LoaderData;
@@ -43,8 +43,8 @@ export function Pokemon() {
 				</div>
 			</div>
 			<div className="flex w-[45rem] flex-wrap items-center justify-center gap-10 max-md:w-[90vw]">
-				<EvolutionBlock {...evolutions} />
 				<StatsBlock stats={pokemon.baseStats} />
+				<Carousel {...evolutions} />
 			</div>
 		</div>
 	);
