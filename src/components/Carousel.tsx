@@ -12,6 +12,7 @@ export function Carousel(props: CarouselProps) {
 	const currentPokemon = orderedPokemons.indexOf(props.this);
 
 	const [active, setActive] = useState(currentPokemon);
+	const [loop, setLoop] = useState<NodeJS.Timer | null>(null);
 
 	const left = () => {
 		setActive((prev) => {
@@ -37,10 +38,10 @@ export function Carousel(props: CarouselProps) {
 
 	useEffect(() => {
 		document.addEventListener('keydown', (e) => keyfn(e));
-		const interval = setInterval(right, 2000);
+		setLoop(setInterval(right, 2000));
 		return () => {
 			document.removeEventListener('keydown', (e) => keyfn(e));
-			clearInterval(interval);
+			loop && clearInterval(loop);
 		};
 	}, []);
 
@@ -54,7 +55,11 @@ export function Carousel(props: CarouselProps) {
 			<div className="flex w-full items-center justify-center">
 				<Button
 					ref={leftRef}
-					onClick={left}
+					onClick={() => {
+						left();
+						clearInterval(loop!);
+						setLoop(setInterval(right, 2000));
+					}}
 					variant="ghost"
 					size="icon"
 					className="absolute left-0 top-0 h-full after:absolute after:inset-0 after:bg-[linear-gradient(270deg,white_80%,rgba(0,0,0,.2))] after:opacity-0 after:transition-opacity after:duration-200 after:hover:opacity-90"
@@ -78,7 +83,11 @@ export function Carousel(props: CarouselProps) {
 				))}
 				<Button
 					ref={rightRef}
-					onClick={right}
+					onClick={() => {
+						right();
+						clearInterval(loop!);
+						setLoop(setInterval(right, 2000));
+					}}
 					variant="ghost"
 					size="icon"
 					className="absolute right-0 top-0 h-full after:absolute after:inset-0 after:bg-[linear-gradient(90deg,white_80%,rgba(0,0,0,.2))] after:opacity-0 after:transition-opacity after:duration-200 after:hover:opacity-90"
