@@ -9,6 +9,7 @@ export function Carousel(props: CarouselProps) {
 	const rightRef = useRef<HTMLButtonElement>(null);
 	const orderedPokemons = [...(props.preevolutions ?? []), props.this, ...(props.evolutions ?? [])];
 	const currentPokemon = orderedPokemons.indexOf(props.this);
+	const time = 5000;
 
 	const [active, setActive] = useState(currentPokemon);
 	const [loop, setLoop] = useState<NodeJS.Timer | null>(null);
@@ -37,7 +38,7 @@ export function Carousel(props: CarouselProps) {
 
 	useEffect(() => {
 		document.addEventListener('keydown', (e) => keyfn(e));
-		setLoop(setInterval(right, 2000));
+		setLoop(setInterval(right, time));
 		return () => {
 			document.removeEventListener('keydown', (e) => keyfn(e));
 			loop && clearInterval(loop);
@@ -57,7 +58,7 @@ export function Carousel(props: CarouselProps) {
 					onClick={() => {
 						left();
 						clearInterval(loop!);
-						setLoop(setInterval(right, 2000));
+						setLoop(setInterval(right, time));
 					}}
 					variant="ghost"
 					size="icon"
@@ -85,7 +86,7 @@ export function Carousel(props: CarouselProps) {
 					onClick={() => {
 						right();
 						clearInterval(loop!);
-						setLoop(setInterval(right, 2000));
+						setLoop(setInterval(right, time));
 					}}
 					variant="ghost"
 					size="icon"
