@@ -1,6 +1,5 @@
 import type { Maybe, Pokemon } from '@favware/graphql-pokemon';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
-
 import { Button } from '@/components/ui/button';
 import { CarouselElement } from './CarouselElement';
 import { useRef, useState, useEffect } from 'react';
