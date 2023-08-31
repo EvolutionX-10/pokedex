@@ -41,7 +41,6 @@ export function Carousel(props: CarouselProps) {
 		setLoop(setInterval(right, time));
 		return () => {
 			document.removeEventListener('keydown', (e) => keyfn(e));
-			loop && clearInterval(loop);
 		};
 	}, []);
 
@@ -57,7 +56,6 @@ export function Carousel(props: CarouselProps) {
 					ref={leftRef}
 					onClick={() => {
 						left();
-						clearInterval(loop!);
 						setLoop(setInterval(right, time));
 					}}
 					variant="ghost"
@@ -85,7 +83,6 @@ export function Carousel(props: CarouselProps) {
 					ref={rightRef}
 					onClick={() => {
 						right();
-						clearInterval(loop!);
 						setLoop(setInterval(right, time));
 					}}
 					variant="ghost"
