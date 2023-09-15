@@ -1,18 +1,14 @@
 import { GraphQLPokemonResponse } from '#types';
 import { Pokemon } from '@favware/graphql-pokemon';
 
-export async function getPokemonByNum(
-	number: number
-): Promise<Pokemon> {
-	const res = await fetch(
-		'https://graphqlpokemon.favware.tech/v7',
-		{
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				query: `query (
+export async function getPokemonByNum(number: number): Promise<Pokemon> {
+	const res = await fetch('https://graphqlpokemon.favware.tech/v7', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			query: `query (
 					$offsetFlavorTexts: Int
 					$takeFlavorTexts: Int
 					$reverseFlavorTexts: Boolean
@@ -363,17 +359,12 @@ export async function getPokemonByNum(
 					}
 				  }
 				  `,
-				variables: JSON.stringify({
-					number,
-				}),
-			}),
-		}
-	);
+			variables: { number },
+		}),
+	});
 
 	// if (!res) return null;
 
-	const response = await (res.json() as Promise<
-		GraphQLPokemonResponse<'getPokemonByDexNumber'>
-	>);
+	const response = await (res.json() as Promise<GraphQLPokemonResponse<'getPokemonByDexNumber'>>);
 	return response.data.getPokemonByDexNumber;
 }

@@ -2,15 +2,13 @@ import { GraphQLPokemonResponse } from '#types';
 import type { MovesEnum } from '@favware/graphql-pokemon';
 
 export async function getMove(move: MovesEnum) {
-	const res = await fetch(
-		'https://graphqlpokemon.favware.tech/v7',
-		{
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				query: `query ($move: MovesEnum!) {
+	const res = await fetch('https://graphqlpokemon.favware.tech/v7', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			query: `query ($move: MovesEnum!) {
 					getMove(move: $move) {
 					  key
 					  accuracy
@@ -35,15 +33,10 @@ export async function getMove(move: MovesEnum) {
 					  zMovePower
 					}
 				  }`,
-				variables: JSON.stringify({
-					move,
-				}),
-			}),
-		}
-	);
+			variables: { move },
+		}),
+	});
 
-	const json = await (res.json() as Promise<
-		GraphQLPokemonResponse<'getMove'>
-	>);
+	const json = await (res.json() as Promise<GraphQLPokemonResponse<'getMove'>>);
 	return json.data.getMove;
 }

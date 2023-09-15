@@ -2,15 +2,13 @@ import { GraphQLPokemonResponse } from '#types';
 import type { PokemonEnum } from '@favware/graphql-pokemon';
 
 export async function getPokemon(pokemon: PokemonEnum) {
-	const res = await fetch(
-		'https://graphqlpokemon.favware.tech/v7',
-		{
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				query: `fragment flavors on Flavor {
+	const res = await fetch('https://graphqlpokemon.favware.tech/v7', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			query: `fragment flavors on Flavor {
 					game
 					flavor
 				  }
@@ -149,17 +147,12 @@ export async function getPokemon(pokemon: PokemonEnum) {
 					  ...evolutions
 					}
 				  }`,
-				variables: JSON.stringify({
-					pokemon,
-				}),
-			}),
-		}
-	);
+			variables: { pokemon },
+		}),
+	});
 
 	if (!res) return null;
 
-	const response = await (res.json() as Promise<
-		GraphQLPokemonResponse<'getPokemon'>
-	>);
+	const response = await (res.json() as Promise<GraphQLPokemonResponse<'getPokemon'>>);
 	return response.data.getPokemon;
 }
