@@ -1,149 +1,101 @@
-import { CommandGroup, CommandItem, CommandList, CommandInput } from '@/components/ui/command';
-import { Command as CommandPrimitive } from 'cmdk';
-import { useState, useRef, useCallback, type KeyboardEvent } from 'react';
+import { getFuzzyPokemon } from '@/lib/getFuzzyPokemon';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { Skeleton } from '@/components/ui/skeleton';
-import { cn } from '@/lib/utils';
-import { Check } from 'lucide-react';
+export function AutoComplete(props: AutoCompleteProps) {
+	const { search, setSearch } = props;
+	const [sorted, setSorted] = useState<AutoCompleteOption[]>([]);
 
-export type Option = Record<'value' | 'label', string> & Record<string, string>;
-
-type AutoCompleteProps = {
-	options: Option[];
-	emptyMessage: string;
-	value?: Option;
-	onValueChange?: (value: Option) => void;
-	isLoading?: boolean;
-	disabled?: boolean;
-	placeholder?: string;
-};
-
-export const AutoComplete = ({
-	options,
-	placeholder,
-	emptyMessage,
-	value,
-	onValueChange,
-	disabled,
-	isLoading = false,
-}: AutoCompleteProps) => {
 	const inputRef = useRef<HTMLInputElement>(null);
+	useEffect(() => {
+		const runInput = async () => {
+			const term = inputRef.current?.value ?? '';
+			const options = await getFuzzyPokemon(term, 5);
 
-	const [isOpen, setOpen] = useState(false);
-	const [selected, setSelected] = useState<Option>(value as Option);
-	const [inputValue, setInputValue] = useState<string>(value?.label || '');
+			const map = options.map((p) => ({
+				value: p.num,
+				label: p.species,
+				forme: p.forme,
+			}));
+			const final = map.sort((a, b) => a.value - b.value);
+			// remove duplicates
+			const unique = final.filter((v, i, a) => a.findIndex((t) => t.value === v.value) === i);
+			setSorted(term === unique[0]?.label ? [] : unique);
 
-	const handleKeyDown = useCallback(
-		(event: KeyboardEvent<HTMLDivElement>) => {
-			const input = inputRef.current;
-			if (!input) {
+			if (term.length && !map.length) {
+				setSorted([{ value: 0, label: 'No results found' }]);
 				return;
 			}
+		};
+		runInput();
+	}, [search]);
 
-			// Keep the options displayed when the user is typing
-			if (!isOpen) {
-				setOpen(true);
-			}
-
-			// This is not a default behaviour of the <input /> field
-			if (event.key === 'Enter' && input.value !== '') {
-				const optionToSelect = options.find((option) => option.label === input.value);
-				if (optionToSelect) {
-					setSelected(optionToSelect);
-					onValueChange?.(optionToSelect);
-				}
-			}
-
-			if (event.key === 'Escape') {
-				input.blur();
-			}
-		},
-		[isOpen, options, onValueChange]
-	);
-
-	const handleBlur = useCallback(() => {
-		setOpen(false);
-		setInputValue(selected?.label);
-	}, [selected]);
-
-	const handleSelectOption = useCallback(
-		(selectedOption: Option) => {
-			setInputValue(selectedOption.label);
-
-			setSelected(selectedOption);
-			onValueChange?.(selectedOption);
-
-			// This is a hack to prevent the input from being focused after the user selects an option
-			// We can call this hack: "The next tick"
-			setTimeout(() => {
-				inputRef?.current?.blur();
-			}, 0);
-		},
-		[onValueChange]
-	);
+	useEffect(() => {
+		if (!inputRef.current?.contains(document.activeElement)) {
+			setSorted([]);
+		} else {
+			setSorted(props.options);
+		}
+	}, [document.activeElement]);
 
 	return (
-		<CommandPrimitive
-			onKeyDown={handleKeyDown}
-			className="rounded-md border-2 text-sm text-white caret-white outline-none placeholder:text-center"
-		>
-			<div>
-				<CommandInput
-					ref={inputRef}
-					value={inputValue}
-					onValueChange={isLoading ? undefined : setInputValue}
-					onBlur={handleBlur}
-					onFocus={() => setOpen(true)}
-					placeholder={placeholder}
-					disabled={disabled}
-					className="text-base"
-				/>
-			</div>
-			<div className="relative mt-1">
-				{isOpen ? (
-					<div className="absolute top-0 z-10 w-full rounded-xl bg-stone-50 outline-none animate-in fade-in-0 zoom-in-95">
-						<CommandList className="rounded-lg ring-1 ring-slate-200">
-							{isLoading ? (
-								<CommandPrimitive.Loading>
-									<div className="p-1">
-										<Skeleton className="h-8 w-full" />
-									</div>
-								</CommandPrimitive.Loading>
-							) : null}
-							{options.length > 0 && !isLoading ? (
-								<CommandGroup>
-									{options.map((option) => {
-										const isSelected = selected?.value === option.value;
-										return (
-											<CommandItem
-												key={option.value}
-												value={option.label}
-												onMouseDown={(event) => {
-													event.preventDefault();
-													event.stopPropagation();
-												}}
-												onSelect={() => handleSelectOption(option)}
-												className={cn(
-													'flex w-full items-center gap-2',
-													!isSelected ? 'pl-8' : null
-												)}
-											>
-												{isSelected ? <Check className="w-4" /> : null}
-												{option.label}
-											</CommandItem>
-										);
-									})}
-								</CommandGroup>
-							) : null}
-							{!isLoading ? (
-								<CommandPrimitive.Empty className="select-none rounded-sm px-2 py-3 text-center text-sm">
-									{emptyMessage}
-								</CommandPrimitive.Empty>
-							) : null}
-						</CommandList>
-					</div>
-				) : null}
-			</div>
-		</CommandPrimitive>
+		<div className="relative">
+			<input
+				type="text"
+				className="w-full rounded bg-gray-200 px-4 py-2 text-gray-700"
+				placeholder="Search"
+				onChange={(e) => setSearch(e.target.value)}
+				value={search}
+				ref={inputRef}
+			/>
+			<ul className="absolute z-10 w-full overflow-hidden rounded-md bg-white shadow-lg">
+				{sorted.slice(0, 5).map((option) => (
+					<AutoCompleteOption
+						{...option}
+						key={option.label}
+						inputRef={inputRef}
+						setSearchTerm={setSearch}
+						setSortedOptions={setSorted}
+					/>
+				))}
+			</ul>
+		</div>
 	);
-};
+}
+
+function AutoCompleteOption(props: AutoCompleteOptionProps) {
+	const redirect = useNavigate();
+	const handleClick = () => {
+		if (props.value !== 0) {
+			props.setSearchTerm('');
+			redirect(`/${props.value}`);
+		}
+	};
+	const disabled = props.value === 0 ? `opacity-50 cursor-not-allowed` : ``;
+	return (
+		<li
+			className={'cursor-pointer px-4 py-2 capitalize hover:bg-gray-200' + disabled}
+			onClick={() => handleClick()}
+		>
+			{props.label}
+		</li>
+	);
+}
+
+interface AutoCompleteProps {
+	options: AutoCompleteOption[];
+	search: string;
+	setOptions: React.Dispatch<React.SetStateAction<AutoCompleteOption[]>>;
+	setSearch: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface AutoCompleteOption {
+	value: number;
+	label: string;
+}
+
+interface AutoCompleteOptionProps extends AutoCompleteOption {
+	inputRef: React.Ref<HTMLInputElement>;
+	setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+	setSortedOptions: React.Dispatch<React.SetStateAction<AutoCompleteOption[]>>;
+}
