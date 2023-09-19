@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export function AutoComplete(props: AutoCompleteProps) {
 	const { search, setSearch } = props;
 	const [sorted, setSorted] = useState<AutoCompleteOption[]>([]);
+	const redirect = useNavigate();
 
 	const inputRef = useRef<HTMLInputElement>(null);
 	useEffect(() => {
@@ -38,10 +39,26 @@ export function AutoComplete(props: AutoCompleteProps) {
 		}
 	}, [document.activeElement]);
 
+
+	useEffect(() => {
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if (e.key === 'Enter') {
+				const firstOption = sorted[0];
+				console.log(firstOption)
+				if (firstOption) {
+					setSearch('');
+					redirect(`/${firstOption.value}`);
+				}
+			}
+		}
+		document.addEventListener('keydown', handleKeyDown);
+		return () => document.removeEventListener('keydown', handleKeyDown);
+	}, [])
+
 	return (
 		<div className="relative">
 			<input
-				type="text"
+				type="search"
 				className="w-full rounded bg-gray-200 px-4 py-2 text-gray-700"
 				placeholder="Search"
 				onChange={(e) => setSearch(e.target.value)}
