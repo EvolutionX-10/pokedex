@@ -52,7 +52,7 @@ export function NavBar() {
 
 	return (
 		<nav className="flex h-14 w-full justify-between bg-red-600 p-2">
-			<div className="flex h-full w-44 justify-around">
+			<div className="flex h-full w-44 justify-around max-md:justify-start items-center">
 				<svg
 					viewBox="0 0 100 100"
 					height={45}
@@ -132,7 +132,7 @@ export function NavBar() {
 						</g>
 					</g>
 				</svg>
-				<img src="assets/logo.png" alt="" />
+				<img src="assets/logo.png" alt="Logo" className="max-md:h-8 h-10" />
 			</div>
 			<SearchBar />
 		</nav>
