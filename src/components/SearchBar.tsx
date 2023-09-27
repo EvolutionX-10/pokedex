@@ -1,44 +1,41 @@
-import { getPokemon, getPokemonByNum } from '#lib';
-import type {
-	Pokemon,
-	PokemonEnum,
-} from '@favware/graphql-pokemon';
-import { useState, useCallback } from 'react';
+import type { Pokemon } from '@favware/graphql-pokemon';
+import { useEffect, useState } from 'react';
+import { AutoComplete, type Option } from '@/components/autocomplete';
+import { getFuzzyPokemon } from '@/lib/getFuzzyPokemon';
+import { useNavigate } from 'react-router-dom';
 
-export function SearchBar(props: SearchBarProps) {
-	const [search, setSearch] = useState('');
+export function SearchBar() {
+	const [inputValue, setInputValue] = useState<string>('');
+	const [loading, setLoading] = useState<boolean>(true);
+	const [options, setOptions] = useState<Option[]>([]);
+	const [value, setValue] = useState<Option>();
+	const redirect = useNavigate();
 
-	const handleSearch = useCallback(
-		async (e: React.FormEvent<HTMLFormElement>) => {
-			e.preventDefault();
-			const pokemon = isNaN(+search)
-				? await getPokemon(
-						search.toLowerCase() as PokemonEnum
-				  )
-				: await getPokemonByNum(+search);
+	useEffect(() => {
+		if (inputValue && inputValue.length < 3) return;
+		const set = async () => {
+			const pkmns = await getFuzzyPokemon(inputValue || 'dragonite');
+			setOptions(pkmns.map((pkmn) => ({ value: pkmn.num.toString(), label: pkmn.species })));
+			setLoading(false);
+		};
+		set();
+	}, [inputValue]);
 
-			if (!pokemon) return;
-			props.setPokemon(pokemon);
-		},
-		[search]
-	);
+	useEffect(() => {
+		if (!value) return;
+		redirect(`/${value.value}`);
+	}, [value]);
 
 	return (
-		<form onSubmit={handleSearch} className="flex w-96">
-			<input
-				type="search"
-				value={search}
-				onChange={(e) => setSearch(e.target.value)}
-				placeholder="Search for a Pokémon..."
-				className="w-full rounded-md border-2 border-yellow-400 bg-transparent p-2.5 text-sm text-white caret-white placeholder:text-center placeholder:text-white focus:outline-none"
-			/>
-		</form>
+		<AutoComplete
+			inputValue={inputValue}
+			setInputValue={setInputValue}
+			isLoading={loading}
+			emptyMessage="No Pokemon found"
+			placeholder="Search"
+			options={options}
+			value={value}
+			onValueChange={setValue}
+		/>
 	);
-}
-
-interface SearchBarProps {
-	pokemon: Pokemon | null;
-	setPokemon: React.Dispatch<
-		React.SetStateAction<Pokemon | null>
-	>;
 }

@@ -1,15 +1,13 @@
 import { Pokemon } from '@favware/graphql-pokemon';
 import { SearchBar } from './SearchBar';
 
-export function NavBar(props: NavBarProps) {
+export function NavBar() {
 	const bounce = new Audio('assets/bounce.mp3');
 	function handleClick(e: React.MouseEvent) {
 		e.preventDefault();
-		const svg = document
-			.getElementsByTagName('svg')
-			.item(0)!;
+		const svg = document.getElementsByTagName('svg').item(0)!;
 
-			// const wobble = new Audio('assets/wobble.mp3');
+		// const wobble = new Audio('assets/wobble.mp3');
 		bounce.volume = 0.7;
 		const mobile = navigator.userAgent.includes('Mobile');
 		mobile && svg.classList.toggle('clicked');
@@ -25,9 +23,7 @@ export function NavBar(props: NavBarProps) {
 			const a = val[0];
 			const b = val[1];
 
-			const angle = Math.round(
-				Math.atan2(b, a) * (180 / Math.PI)
-			);
+			const angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
 
 			svg.style.animationPlayState = 'paused';
 
@@ -56,7 +52,7 @@ export function NavBar(props: NavBarProps) {
 
 	return (
 		<nav className="flex h-14 w-full justify-between bg-red-600 p-2">
-			<div className="flex h-full w-44 justify-around">
+			<div className="flex h-full w-44 justify-around max-md:justify-start items-center">
 				<svg
 					viewBox="0 0 100 100"
 					height={45}
@@ -67,10 +63,7 @@ export function NavBar(props: NavBarProps) {
 						<g transform="translate(0 50)">
 							<g className="gravity">
 								<g transform="translate(0 -50)">
-									<g
-										className="ball"
-										transform="scale(1 1)"
-									>
+									<g className="ball" transform="scale(1 1)">
 										<g className="bottom">
 											<path
 												fill="#ffffff"
@@ -80,10 +73,7 @@ export function NavBar(props: NavBarProps) {
 											></path>
 										</g>
 										<g className="top">
-											<path
-												fill="#f15d5f"
-												d="M -47.5 0 a 47.5 47.5 0 0 1 95 0"
-											></path>
+											<path fill="#f15d5f" d="M -47.5 0 a 47.5 47.5 0 0 1 95 0"></path>
 											<path
 												fill="none"
 												stroke="#ffffff"
@@ -99,10 +89,7 @@ export function NavBar(props: NavBarProps) {
 												d="M -47.5 0 a 47.5 47.5 0 0 1 95 0z"
 											></path>
 										</g>
-										<g
-											className="open"
-											transform="scale(1 0)"
-										>
+										<g className="open" transform="scale(1 0)">
 											<path
 												fill="#303030"
 												stroke="#303030"
@@ -136,12 +123,7 @@ export function NavBar(props: NavBarProps) {
 												r="6"
 											></circle>
 											<g className="inner" opacity="0">
-												<circle
-													fill="#f15d5f"
-													cx="0"
-													cy="0"
-													r="4.5"
-												></circle>
+												<circle fill="#f15d5f" cx="0" cy="0" r="4.5"></circle>
 											</g>
 										</g>
 									</g>
@@ -150,19 +132,9 @@ export function NavBar(props: NavBarProps) {
 						</g>
 					</g>
 				</svg>
-				<img src="assets/logo.png" alt="" />
+				<img src="assets/logo.png" alt="Logo" className="max-md:h-8 h-10" />
 			</div>
-			<SearchBar
-				pokemon={props.pokemon}
-				setPokemon={props.setPokemon}
-			/>
+			<SearchBar />
 		</nav>
 	);
-}
-
-interface NavBarProps {
-	pokemon: Pokemon | null;
-	setPokemon: React.Dispatch<
-		React.SetStateAction<Pokemon | null>
-	>;
 }
