@@ -2,7 +2,7 @@ import { GraphQLPokemonResponse } from '#types';
 import type { PokemonEnum } from '@favware/graphql-pokemon';
 
 export async function getPokemon(pokemon: PokemonEnum) {
-	const res = await fetch('https://graphqlpokemon.favware.tech/v7', {
+	const res = await fetch('https://graphqlpokemon.favware.tech/v8', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',

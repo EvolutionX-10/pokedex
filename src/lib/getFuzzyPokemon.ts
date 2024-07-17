@@ -1,7 +1,7 @@
 import { GraphQLPokemonResponse } from '@/types';
 
 export async function getFuzzyPokemon(pokemon: string, take = 5) {
-	const res = await fetch(`https://graphqlpokemon.favware.tech/v7`, {
+	const res = await fetch(`https://graphqlpokemon.favware.tech/v8`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
